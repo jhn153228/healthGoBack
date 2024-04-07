@@ -1,0 +1,8 @@
+
+바닐라데이터?
+{"routine":[{"work_name":"squat","set_infos":[{"set":1,"kg":80,"labs":8},{"set":2,"kg":90,"labs":5},{"set":3,"kg":100,"labs":3}]},{"work_name":"benchpress","set_infos":[{"set":1,"kg":60,"labs":7},{"set":2,"kg":70,"labs":6},{"set":3,"kg":80,"labs":5}]},{"work_name":"deadlift","set_infos":[{"set":1,"kg":100,"labs":5},{"set":2,"kg":110,"labs":4},{"set":3,"kg":120,"labs":3}]}]}
+{"routine":[{"work_name":"squat","set_infos":[{"set":1,"kg":80,"labs":8},{"set":2,"kg":90,"labs":5},{"set":3,"kg":100,"labs":3}]},{"work_name":"benchpress","set_infos":[{"set":1,"kg":60,"labs":7},{"set":2,"kg":70,"labs":6},{"set":3,"kg":80,"labs":5}]},{"work_name":"deadlift","set_infos":[{"set":1,"kg":100,"labs":5},{"set":2,"kg":110,"labs":4},{"set":3,"kg":120,"labs":3}]}]}
+
+
+핸들링 데이터
+[{"set":1,"kg":80,"labs":8},{"set":2,"kg":90,"labs":5},{"set":3,"kg":100,"labs":3}]

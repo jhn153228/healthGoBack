@@ -1,0 +1,28 @@
+
+const options = [];
+  const [workOuts, setWorkOuts] = useState([]);
+  useEffect(() => {
+    Axios.get("http://localhost:8000/workouts/")
+      .then((res) => {
+        setWorkOuts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  workOuts.forEach((workout) => {
+    options.push({ value: workout.work_name, label: workout.work_name });
+  });
+  const selectOnFinish = async (e) => {
+    const select_data_list = e.Select;
+    console.log(select_data_list);
+  };
+
+
+
+
+원래
+{"routine": [{"work_name": "스쿼트", "set_infos": [{"set": 1, "kg": 80, "labs": 8}, {"set": 2, "kg": 90, "labs": 5}, {"set": 3, "kg": 100, "labs": 3}]}, {"work_name": "벤치 프레스", "set_infos": [{"set": 1, "kg": 60, "labs": 7}, {"set": 2, "kg": 70, "labs": 6}, {"set": 3, "kg": 80, "labs": 5}]}, {"work_name": "컨벤셔널 데드리프트", "set_infos": [{"set": 1, "kg": 100, "labs": 5}, {"set": 2, "kg": 110, "labs": 4}, {"set": 3, "kg": 120, "labs": 3}]}]}
+
+work_index 추가
+{"routine":[{"work_name":"스쿼트","set_infos":[{"set":1,"kg":80,"labs":8},{"set":2,"kg":90,"labs":5},{"set":3,"kg":100,"labs":3}],"work_index":1},{"work_name":"벤치 프레스","set_infos":[{"set":1,"kg":60,"labs":7},{"set":2,"kg":70,"labs":6},{"set":3,"kg":80,"labs":5}],"work_index":1},{"work_name":"컨벤셔널 데드리프트","set_infos":[{"set":1,"kg":100,"labs":5},{"set":2,"kg":110,"labs":4},{"set":3,"kg":120,"labs":3}],"work_index":1}]}
