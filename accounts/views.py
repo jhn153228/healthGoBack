@@ -1,12 +1,12 @@
-from django.contrib.auth import get_user_model
-from django.shortcuts import render
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
-from accounts.serializers import SignupSerializer
+from accounts.models import User
+from accounts.serializers import UserSerializer
 
 
 class SignupView(CreateAPIView):
-    model = get_user_model()
-    serializer_class = SignupSerializer
+    queryset = User.objects.all()
     permission_classes = [AllowAny]
+    serializer_class = UserSerializer

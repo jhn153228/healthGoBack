@@ -1,14 +1,8 @@
-import logging
-
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
-logger = logging.getLogger("django")
+from accounts.models import User
 
 
-class SignupSerializer(serializers.ModelSerializer):
-    logging.info("testsetse")
+class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
@@ -28,10 +22,9 @@ class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            "pk",
-            "username",
+            "login_id",
             "password",
-            "bench_1rm",
-            "squat_1rm",
-            "deadlift_1rm",
+            "username",
+            "email",
+            "spec_json",
         ]
