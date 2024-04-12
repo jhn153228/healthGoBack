@@ -4,16 +4,17 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
-
+from django.contrib.auth.hashers import make_password
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def create_user(self, email, login_id, password=None):
+        hashed_password = make_password(password) # 비밀번호 암호화
         if not email:
             raise ValueError("must have user email")
         user = self.model(email=self.normalize_email(email), login_id=login_id)
-        user.set_password(password)
+        user.set_password(hashed_password)
         user.save(using=self._db)
         return user
 
