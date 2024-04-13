@@ -13,7 +13,7 @@ class RoutineInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RoutineInfo
-        fields = ["info_json", "workout", "workout_name", "routine_id"]
+        fields = ["info_json", "workout_name", "routine_id"]
 
     def get_workout_name(self, obj):
         # obj.workout_id는 workout_id의 값을 의미합니다.

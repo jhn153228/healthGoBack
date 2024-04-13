@@ -19,7 +19,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_JSON = Path(__file__).resolve().parent.parent.parent
 f = open(str(ENV_JSON) + "/env.json", "r")
-ALLOWED_HOST_STR = json.load(f)["ALLOWED_HOSTS"]
+ALLOWED_HOST_LIST = json.load(f)["ALLOWED_HOSTS"]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-edi@wimcr$6f=bh853zflu%9(25ykp=2jd$y0doaj=&yi@=nn$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ALLOWED_HOST_STR]
+ALLOWED_HOSTS = ALLOWED_HOST_LIST
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django_pydenticon",
     "rest_framework",
     "rest_framework_simplejwt",
+    "drf_yasg",
     # local apps
     "accounts",
     "routine",
