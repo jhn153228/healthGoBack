@@ -11,20 +11,20 @@ LOG = logger.info
 class WorkOutSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkOut
-        fields = ["id", "workname", "work_type", "work_img", "work_video"]
+        fields = ["id", "work_name", "work_type", "work_img", "work_video"]
 
 
 class RoutineInfoSerializer(serializers.ModelSerializer):
-    workout_name = serializers.ReadOnlyField(source="workout.work_name")
-    workout_img = serializers.SerializerMethodField()
+    work_name = serializers.ReadOnlyField(source="workout.work_name")
+    work_img = serializers.SerializerMethodField()
 
     class Meta:
         model = RoutineInfo
         fields = [
             "info_json",
             "workout",
-            "workout_name",
-            "workout_img",
+            "work_name",
+            "work_img",
             "routine_id",
             "id",
         ]
