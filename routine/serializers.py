@@ -29,7 +29,7 @@ class RoutineInfoSerializer(serializers.ModelSerializer):
             "id",
         ]
 
-    def get_workout_img(self, obj):
+    def get_work_img(self, obj):
         # obj의 workout 인스턴스가 존재하고 work_img가 있는 경우에만 반환
         if obj.workout and obj.workout.work_img:
             return obj.workout.work_img.url
