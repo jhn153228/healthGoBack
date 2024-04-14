@@ -21,8 +21,8 @@ class Routine(models.Model):
 class WorkOut(models.Model):
     work_name = models.CharField(max_length=50, null=False, blank=False, unique=True)
     work_type = models.CharField(max_length=50, null=False, blank=False)
-    work_img = models.URLField(null=True, blank=True)
-    work_video = models.URLField(null=True, blank=True)
+    work_img = models.ImageField(null=True, blank=True)
+    work_video = models.FileField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

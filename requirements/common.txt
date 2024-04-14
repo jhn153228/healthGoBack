@@ -5,3 +5,5 @@ django-cors-headers
 django-pydenticon
 pillow
 black
+boto3
+django-storages

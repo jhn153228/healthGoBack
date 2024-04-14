@@ -15,12 +15,16 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_JSON = Path(__file__).resolve().parent.parent.parent
-f = open(str(ENV_JSON) + "/env.json", "r")
-ALLOWED_HOST_LIST = json.load(f)["ALLOWED_HOSTS"]
-
+with open(str(ENV_JSON) + "/env.json", "r") as env_json:
+    JSON_DATA = json.load(env_json)
+ALLOWED_HOST_LIST = JSON_DATA["ALLOWED_HOSTS"]
+ENV = JSON_DATA["ENV"]
+aws_access_key_id_data = JSON_DATA["AWS_ACCESS_KEY_ID"]
+aws_secret_key_data = JSON_DATA["AWS_SECRET_ACCESS_KEY"]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -49,6 +53,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_yasg",
+    "storages",
     # local apps
     "accounts",
     "routine",
@@ -128,15 +133,30 @@ USE_I18N = True
 
 USE_TZ = True
 
+# AWS S3 settings
+AWS_ACCESS_KEY_ID = aws_access_key_id_data
+AWS_SECRET_ACCESS_KEY = aws_secret_key_data
+AWS_STORAGE_BUCKET_NAME = "health-go-bucket"
+AWS_S3_REGION_NAME = "ap-northeast-2"  # 예: 'us-east-1'
+AWS_S3_CUSTOM_DOMAIN = (
+    f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+)
+# Static files (CSS, JavaScript, images)
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+# Media files (user uploads)
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# https://health-go-bucket.s3.ap-northeast-2.amazonaws.com/admin/js/nav_sidebar.js
+# https://health-go-bucket.s3.ap-northeast-2.amazonaws.com/admin/js/nav_sidebar.js
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# STATIC_URL = "/static/"
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
@@ -175,7 +195,6 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 }
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
