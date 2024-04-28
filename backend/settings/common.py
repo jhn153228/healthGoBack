@@ -167,6 +167,11 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+# SAMSITE
+SESSION_COOKIE_SAMESITE = "None"  # 쿠키가 cross-site HTTP 요청에 포함되게 설정
+SESSION_COOKIE_SECURE = True  # HTTPS 연결을 요구
+
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
