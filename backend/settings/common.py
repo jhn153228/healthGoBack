@@ -20,16 +20,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_JSON = Path(__file__).resolve().parent.parent.parent
 with open(str(ENV_JSON) + "/env.json", "r") as env_json:
-    JSON_DATA = json.load(env_json)
-ALLOWED_HOST_LIST = JSON_DATA["ALLOWED_HOSTS"]
-ENV = JSON_DATA["ENV"]
-aws_access_key_id_data = JSON_DATA["AWS_ACCESS_KEY_ID"]
-aws_secret_key_data = JSON_DATA["AWS_SECRET_ACCESS_KEY"]
+    ENV_JSON_DATA = json.load(env_json)
+ALLOWED_HOST_LIST = ENV_JSON_DATA["ALLOWED_HOSTS"]
+ENV = ENV_JSON_DATA["ENV"]
+aws_access_key_id_data = ENV_JSON_DATA["AWS_ACCESS_KEY_ID"]
+aws_secret_key_data = ENV_JSON_DATA["AWS_SECRET_ACCESS_KEY"]
+ENV_SECRET_KEY = ENV_JSON_DATA["SECRET_KEY"]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-edi@wimcr$6f=bh853zflu%9(25ykp=2jd$y0doaj=&yi@=nn$"
+SECRET_KEY = ENV_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
