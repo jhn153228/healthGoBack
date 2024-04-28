@@ -57,7 +57,7 @@ class CustomTokenRefreshView(TokenRefreshView):
 class LogoutView(APIView):
     def post(self, request, *args, **kwargs):
         # 쿠키에서 리프레시 토큰 가져오기
-        token = request.COOKIES.get("jwt_token")
+        token = request.COOKIES.get("refresh")
 
         if token:
             # 토큰을 블랙리스트에 추가하여 무효화
@@ -66,8 +66,8 @@ class LogoutView(APIView):
 
             # 쿠키 제거
             response = Response({"message": "로그아웃 성공"}, status=status.HTTP_200_OK)
-            response.delete_cookie("refresh")  # 'jwt_token' 쿠키 삭제
-            response.delete_cookie("access")  # 'jwt_token' 쿠키 삭제
+            response.delete_cookie("refresh")  # 'refresh' 쿠키 삭제
+            response.delete_cookie("access")  # 'access' 쿠키 삭제
 
             return response
 
