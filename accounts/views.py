@@ -27,15 +27,27 @@ class LoginView(TokenObtainPairView):
 
         response = Response(
             {
-                "message": "로그인 성공",
+                "message": "로그인 성공tttt",
                 "refresh_token": res.data.get("refresh", None),
                 "access_token": res.data.get("access", None),
             },
             status=status.HTTP_200_OK,
         )
 
-        # response.set_cookie("refresh", res.data.get("refresh", None), httponly=True)
-        # response.set_cookie("access", res.data.get("access", None), httponly=True)
+        response.set_cookie(
+            "refresh",
+            res.data.get("refresh", None),
+            httponly=True,
+            samesite="None",
+            secure=False,
+        )
+        response.set_cookie(
+            "access",
+            res.data.get("access", None),
+            httponly=True,
+            samesite="None",
+            secure=False,
+        )
 
         return response
 
