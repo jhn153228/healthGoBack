@@ -28,26 +28,14 @@ class LoginView(TokenObtainPairView):
         response = Response(
             {
                 "message": "로그인 성공",
-                # "refresh_token": res.data.get("refresh", None),
-                # "access_token": res.data.get("access", None),
+                "refresh_token": res.data.get("refresh", None),
+                "access_token": res.data.get("access", None),
             },
             status=status.HTTP_200_OK,
         )
 
-        response.set_cookie(
-            "refresh",
-            res.data.get("refresh", None),
-            httponly=True,
-            samesite="None",
-            secure=True,
-        )
-        response.set_cookie(
-            "access",
-            res.data.get("access", None),
-            httponly=True,
-            samesite="None",
-            secure=True,
-        )
+        # response.set_cookie("refresh", res.data.get("refresh", None), httponly=True)
+        # response.set_cookie("access", res.data.get("access", None), httponly=True)
 
         return response
 
@@ -62,13 +50,15 @@ class CustomTokenRefreshView(TokenRefreshView):
             refresh_token = response.data.get("refresh", None)
             access_token = response.data.get("access", None)
 
-            cookie_response = Response({"message": "Token refreshed successfully"})
-            cookie_response.set_cookie(
-                "refresh", refresh_token, httponly=True, samesite="None", secure=True
-            )  # httponly=True
-            cookie_response.set_cookie(
-                "access", access_token, httponly=True, samesite="None", secure=True
+            cookie_response = Response(
+                {
+                    "message": "Token refreshed successfully",
+                    "refresh_token": refresh_token,
+                    "access_token": access_token,
+                }
             )
+            # cookie_response.set_cookie("refresh", refresh_token, httponly=True)
+            # cookie_response.set_cookie("access", access_token, httponly=True)
 
             return cookie_response
 
@@ -78,7 +68,7 @@ class CustomTokenRefreshView(TokenRefreshView):
 class LogoutView(APIView):
     def post(self, request, *args, **kwargs):
         # 쿠키에서 리프레시 토큰 가져오기
-        token = request.COOKIES.get("refresh")
+        token = request.data.get("refresh", None)
 
         if token:
             # 토큰을 블랙리스트에 추가하여 무효화
@@ -87,8 +77,8 @@ class LogoutView(APIView):
 
             # 쿠키 제거
             response = Response({"message": "로그아웃 성공"}, status=status.HTTP_200_OK)
-            response.delete_cookie("refresh")  # 'refresh' 쿠키 삭제
-            response.delete_cookie("access")  # 'access' 쿠키 삭제
+            # response.delete_cookie("refresh")  # 'refresh' 쿠키 삭제
+            # response.delete_cookie("access")  # 'access' 쿠키 삭제
 
             return response
 
