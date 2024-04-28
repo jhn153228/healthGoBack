@@ -161,7 +161,11 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ],
 }
-CORS_ORIGIN_WHITELIST = ["http://localhost:5173"]
+
+# CORS 설정
+# CORS_ORIGIN_WHITELIST = ["http://localhost:5173"]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),

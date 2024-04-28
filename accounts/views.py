@@ -25,7 +25,14 @@ class LoginView(TokenObtainPairView):
 
         res = super().post(request, *args, **kwargs)
 
-        response = Response({"detail": "로그인 성공"}, status=status.HTTP_200_OK)
+        response = Response(
+            {
+                "message": "로그인 성공",
+                # "refresh_token": res.data.get("refresh", None),
+                # "access_token": res.data.get("access", None),
+            },
+            status=status.HTTP_200_OK,
+        )
 
         response.set_cookie("refresh", res.data.get("refresh", None), httponly=True)
         response.set_cookie("access", res.data.get("access", None), httponly=True)
@@ -43,7 +50,7 @@ class CustomTokenRefreshView(TokenRefreshView):
             refresh_token = response.data.get("refresh", None)
             access_token = response.data.get("access", None)
 
-            cookie_response = Response({"detail": "Token refreshed successfully"})
+            cookie_response = Response({"message": "Token refreshed successfully"})
             cookie_response.set_cookie(
                 "refresh", refresh_token, httponly=True
             )  # httponly=True
