@@ -23,22 +23,9 @@ LOG = logger.info
 
 class RoutineViewSet(ModelViewSet):
     queryset = Routine.objects.all()
-    permission_classes = [IsAuthenticated]  # 인증된 요청에 한해서 뷰 호출 허용
+    # permission_classes = [IsAuthenticated]  # Settings 디폴트로 설정 함
     serializer_class = RoutineSerializer
 
-    @swagger_auto_schema(
-        manual_parameters=[
-            openapi.Parameter(
-                "Authorization",
-                in_=openapi.IN_HEADER,
-                type=openapi.TYPE_STRING,
-                required=True,
-                description="유저 Bearer JWT",
-            )
-        ],
-        operation_summary="유저의 루틴 리스트",
-        responses={200: RoutineSerializer(many=True)},
-    )
     def list(self, request, *args, **kwargs):
         filter_qs = Routine.objects.filter(user=request.user)
         serializer = RoutineSerializer(filter_qs, many=True)
@@ -68,7 +55,7 @@ class RoutineViewSet(ModelViewSet):
 
 class RoutineInfoViewSet(ModelViewSet):
     queryset = RoutineInfo.objects.all()
-    permission_classes = [IsAuthenticated]  # 인증된 요청에 한해서 뷰 호출 허용
+    # permission_classes = [IsAuthenticated]  # Settings 디폴트로 설정 함
     serializer_class = RoutineInfoSerializer
 
     @swagger_auto_schema(
@@ -120,5 +107,5 @@ class RoutineInfoViewSet(ModelViewSet):
 
 class WorkOutListAPIView(ListAPIView):
     queryset = WorkOut.objects.all()
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]  # Settings 디폴트로 설정 함
     serializer_class = WorkOutSerializer
