@@ -5,22 +5,25 @@
 ## 개요
 
 - Fleek 클론코딩
+- DRF View 및 Serializer에대한 공부와 Front 공부의 목적으로 진행
 - 운동기록, 소셜 기능까지 목표
-- 
+
 
 ---
 
 ## 서버 구조
 
 > Back : Django Rest Framework
-> Python Version : 3.14
-
-> Front : React
+> Python Version : 3.11
 
 > 사용 기술 및 스택
 > 1. Djang-jwt를 사용한 사용자 보안인증
 > 2. AWS - EC2, S3 
 > 3. CICD
+
+> Front : React / typeScript
+
+
 
 ---
 
